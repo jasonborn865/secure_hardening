@@ -115,7 +115,7 @@ main() {
     
     apt update -y && apt upgrade -y
     apt install wget curl putty-tools -y
-    timedatectl set-timezone Asia/Shanghi
+    timedatectl set-timezone Asia/Shanghai
 
     if [ "$DOCKERINSTALL" = true ]; then
         echo "Install docker......"
