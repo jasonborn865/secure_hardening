@@ -74,6 +74,7 @@ main() {
     DOCKERINSTALL=false
     SSHAUTHKEY=false
     SSHPORT=false
+	SSHEDITCONFIG=false
 
     read -p "Change SSH Port, press Enter to keep the current one ($ssh_current_port):" sshport_update
     until [[ -z "$sshport_update" || "$sshport_update" =~ ^[0-9]+$ && "$sshport_update" -le 65535 ]]; do
@@ -96,6 +97,22 @@ main() {
                 break;;
         esac
     done
+
+	if [ "$SSHAUTHKEY" = false ]; then
+	    echo "Change ssh config file to active SSH authorized_keys (e.g., Amazon Cloud or Oracle Cloud)?"
+	    select yn in "Yes" "No"; do
+	        case $yn in
+	            Yes) 
+	                SSHEDITCONFIG=true
+	                break;;
+	            No)
+	                break;;
+	            *)
+	                echo "No change ssh config."; 
+	                break;;
+	        esac
+	    done
+	fi
 
     # Docker
     echo "Install or update Docker?"
@@ -170,12 +187,16 @@ main() {
         edit_ssh_config
         echo "Success update authorized_keys.";
         echo "Private key file will be located at: $(pwd)/gensshkey."
-    
-	elif [ -e "/root/.ssh/authorized_keys" ]; then # Check if /root/.ssh/authorized_keys exist
-		edit_ssh_config   
-		echo "Success edit ssh config!"
-	else
-	    echo "Change nothing about ssh config."
+    fi
+
+	# Check if /root/.ssh/authorized_keys exist
+ 	if [ "$SSHEDITCONFIG" = true ]; then
+        echo "Change SSH config file begin..."
+		if [ -e "/root/.ssh/authorized_keys" ]; then 
+			edit_ssh_config   
+			echo "Success change ssh config!"
+		else
+	    	echo "Change nothing about ssh config."
   	fi
  
     echo "Completed."
