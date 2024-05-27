@@ -70,13 +70,6 @@ ssh_current_port=$(echo "$SSH_CLIENT" | awk '{print $3}')
 
 set -e
 main() {
-    # 检查是否传递了参数并调用相应的函数
-    if [ "$#" -eq 1 ]; then
-        "$1"
-    else
-        echo "Please provide a function name to run. Available functions: function1, function2"
-    fi
-
     # Default option
     DOCKERINSTALL=false
     SSHAUTHKEY=false
@@ -177,8 +170,14 @@ main() {
         edit_ssh_config
         echo "Success update authorized_keys.";
         echo "Private key file will be located at: $(pwd)/gensshkey."
-    fi
-
+    
+	elif [ -e "/root/.ssh/authorized_keys" ]; then # Check if /root/.ssh/authorized_keys exist
+		edit_ssh_config   
+		echo "Success edit ssh config!"
+	else
+	    echo "Change nothing about ssh config."
+  	fi
+ 
     echo "Completed."
     if [ -d "./gensshkey" ]; then
         echo -e "SSH key file saved at: ${GREEN}$(pwd)/gensshkey${ENDCOLOR}."
