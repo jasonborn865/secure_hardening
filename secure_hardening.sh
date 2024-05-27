@@ -197,7 +197,7 @@ main() {
 			echo "Success change ssh config!"
 		else
 			echo "Change nothing about ssh config."
-   		fi
+		fi
 	fi
  
     echo "Completed."
