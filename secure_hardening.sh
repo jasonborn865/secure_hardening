@@ -190,14 +190,15 @@ main() {
     fi
 
 	# Check if /root/.ssh/authorized_keys exist
- 	if [ "$SSHEDITCONFIG" = true ]; then
-        echo "Change SSH config file begin..."
+	if [ "$SSHEDITCONFIG" = true ]; then
+		echo "Change SSH config file begin..."
 		if [ -e "/root/.ssh/authorized_keys" ]; then 
 			edit_ssh_config   
 			echo "Success change ssh config!"
 		else
-	    	echo "Change nothing about ssh config."
-  	fi
+			echo "Change nothing about ssh config."
+   		fi
+	fi
  
     echo "Completed."
     if [ -d "./gensshkey" ]; then
