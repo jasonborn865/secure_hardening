@@ -70,6 +70,24 @@ ssh_current_port=$(echo "$SSH_CLIENT" | awk '{print $3}')
 
 set -e
 main() {
+    # 检查是否传递了参数并调用相应的函数
+    if [ "$#" -eq 1 ]; then
+        case "$1" in
+  	    function1|function2)
+	        "$1"
+	        ;;
+	    *)
+	        echo "Error: Invalid function name"
+	        show_help
+	        exit 1
+	        ;;
+        esac
+    else
+      echo "Error: Please provide a function name to run."
+      show_help
+      exit 1
+    fi
+
     # Default option
     DOCKERINSTALL=false
     SSHAUTHKEY=false
