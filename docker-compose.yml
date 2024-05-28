@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   sing-box:
     image: ghcr.io/sagernet/sing-box
