@@ -12,8 +12,8 @@ services:
       - 8090:8090
       - 10080-10099:10080-10099/udp
     volumes:
-      - ./data:/data
-      - ./tls:/tls
+      - ./data:/sing-box/data
+      - ./tls:/sing-box/tls
     cap_add:
       - NET_ADMIN
     devices:
