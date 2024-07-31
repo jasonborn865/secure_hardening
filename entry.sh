@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-configFilePath="/data/config.json"
-logFilePath="/data/sing-box.log"
+configFilePath="/sing-box/data/config.json"
+logFilePath="/sing-box/data/sing-box.log"
 
 echo "entry"
 sing-box version
